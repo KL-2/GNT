@@ -1,0 +1,48 @@
+1. GNT：
+	GNT论文代码：https://github.com/VITA-Group/GNT
+	
+1.1 激活环境
+	打开anaconda图形界面： anaconda-navigator 
+	查看已配置环境：conda env list
+	激活环境：source activate gnt
+	关闭环境：conda deactivate
+	
+1.2 训练测试模型
+	训练模型：
+		# single scene
+		python3 train.py --config configs/gnt_<scene-name>.txt --train_scenes <scene> --eval_scenes <scene>
+		eg:python3 train.py --config configs/gnt_llff.txt --train_scenes orchids --eval_scenes orchids
+
+		# cross scene
+		python3 train.py --config configs/gnt_full.txt
+		output:./GNT/out/gnt_<scene-name>/model_XXXXXX.pth(model)
+		
+	测试模型：
+		# single scene
+		python3 eval.py --config configs/gnt_<scene-name>.txt --eval_scenes <scene> --expname gnt_<scene-name> --chunk_size 500 --run_val --N_samples 192
+		
+		# cross scene
+		python3 eval.py --config configs/gnt_full.txt --expname gnt_full --chunk_size 500 --run_val --N_samples 192
+		output:
+		
+	渲染：python3 render.py --config configs/gnt_llff.txt --eval_dataset llff_render --eval_scenes <scene> --expname gnt_<scene-name> --chunk_size 500 --N_samples 192
+		
+1.3 输入输出
+	数据集构建：
+		├──data/
+    			├──ibrnet_collected_1/		 (*)
+    			├──ibrnet_collected_2/		 (*)
+    			├──real_iconic_noface/
+    			├──spaces_dataset/
+    			├──RealEstate10K-subset/	（no）
+    			├──google_scanned_objects/
+    			├──nerf_synthetic/ 		 (*)
+    			├──nerf_llff_data/		 (*)
+	
+	训练模型存放：./out/{gnt_<scene-name>
+	
+1.4参数设置
+	configs:./configs/gnt_<scene-name>.txt
+	显卡显存不足可以减小参数：N_rand
+		
+
