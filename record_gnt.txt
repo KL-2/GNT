@@ -23,9 +23,12 @@
 		
 		# cross scene
 		python3 eval.py --config configs/gnt_full.txt --expname gnt_full --chunk_size 500 --run_val --N_samples 192
-		output:
+		
 		
 	渲染：python3 render.py --config configs/gnt_llff.txt --eval_dataset llff_render --eval_scenes <scene> --expname gnt_<scene-name> --chunk_size 500 --N_samples 192
+		output:120张图片train_%3d_coarse.png
+	
+	拼合图片成为视频：ffmpeg -r 40 -f image2 -i train_%3d_coarse.png output1.mp4
 		
 1.3 输入输出
 	数据集构建：
